@@ -1,5 +1,5 @@
 # 🌱 Long-Range Greenhouse Environmental Monitoring System
-
+Live greenhouse data:   https://benb0jangles.github.io/Remote-greenhouse-monitor/                                                                    
 ## Project Overview
 
 This project implements a **long-range wireless environmental monitoring system** for precision agriculture and horticultural research. It enables real-time tracking of critical growing conditions in a greenhouse located **3 kilometers away** from the monitoring station, using low-power LoRa mesh networking technology.
