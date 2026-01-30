@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenhouse Environmental Monitoring</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@3.0.0/index.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌱 Greenhouse Environmental Monitoring</h1>
+            <p class="subtitle">Long-Range LoRa Sensor Network for Precision Agriculture</p>
+        </header>
+
+        <div class="controls">
+            <div class="time-range-selector">
+                <button class="range-btn active" data-range="24h">24 Hours</button>
+                <button class="range-btn" data-range="7d">7 Days</button>
+                <button class="range-btn" data-range="30d">30 Days</button>
+                <button class="range-btn" data-range="1y">1 Year</button>
+            </div>
+
+            <div class="status">
+                <span id="lastUpdate">Loading data...</span>
+                <button id="refreshBtn" class="refresh-btn">↻ Refresh</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🌡️</div>
+                <div class="stat-label">Temperature</div>
+                <div class="stat-value" id="currentTemp">--</div>
+                <div class="stat-unit">°C</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💧</div>
+                <div class="stat-label">Humidity</div>
+                <div class="stat-value" id="currentHumidity">--</div>
+                <div class="stat-unit">%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔆</div>
+                <div class="stat-label">Barometric Pressure</div>
+                <div class="stat-value" id="currentPressure">--</div>
+                <div class="stat-unit">hPa</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">☀️</div>
+                <div class="stat-label">Light Intensity</div>
+                <div class="stat-value" id="currentLux">--</div>
+                <div class="stat-unit">lux</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🌾</div>
+                <div class="stat-label">Soil Moisture</div>
+                <div class="stat-value" id="currentSoil">--</div>
+                <div class="stat-unit">%</div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <h3>Temperature</h3>
+                <canvas id="tempChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3>Humidity</h3>
+                <canvas id="humidityChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3>Barometric Pressure</h3>
+                <canvas id="pressureChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3>Light Intensity</h3>
+                <canvas id="luxChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3>Soil Moisture</h3>
+                <canvas id="soilChart"></canvas>
+            </div>
+        </div>
+
+        <footer>
+            <p>Data updated hourly from greenhouse sensor node (3km away) via LoRa mesh network</p>
+            <p class="tech-note">Powered by Meshtastic + ThingSpeak + GitHub Pages</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
