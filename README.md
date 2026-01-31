@@ -1,7 +1,7 @@
 # 🌱 Long-Range Greenhouse Environmental Monitoring System
 Live greenhouse data:   https://benb0jangles.github.io/Remote-greenhouse-monitor/     
 
-![monitor_image1](https://github.com/benb0jangles/Remote-greenhouse-monitor/blob/main/img/2.jpg)
+![monitor_image1](https://github.com/benb0jangles/Remote-greenhouse-monitor/blob/main/img/2%20Medium.jpeg)
 
 ## Project Overview
 
