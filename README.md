@@ -78,41 +78,8 @@ Over time, you can:
 
 ## UK Growing Conditions Reference Guide
 
-### Typical UK Greenhouse Environmental Conditions (Monthly Averages)
+![monitor_image2](https://github.com/benb0jangles/Remote-greenhouse-monitor/blob/main/img/1.jpg)
 
-| Month | Avg Temp (°C) | Min/Max (°C) | Daylight Lux | Day Length | Best For |
-|-------|---------------|--------------|--------------|------------|----------|
-| **January** | 4-8°C | 0-12°C | 5,000-15,000 | 8 hours | Overwintering crops, planning |
-| **February** | 4-9°C | 0-14°C | 10,000-25,000 | 10 hours | Early seed starting (heated) |
-| **March** | 6-12°C | 2-16°C | 20,000-40,000 | 12 hours | Cool-season crops, transplants |
-| **April** | 8-15°C | 4-20°C | 30,000-50,000 | 14 hours | Spring planting peak |
-| **May** | 12-19°C | 8-24°C | 40,000-60,000 | 16 hours | Warm-season transplanting |
-| **June** | 15-22°C | 11-28°C | 50,000-80,000 | 17 hours | Peak growing, fruiting crops |
-| **July** | 17-25°C | 13-32°C | 50,000-80,000 | 16 hours | Harvest, heat management |
-| **August** | 17-24°C | 13-30°C | 40,000-70,000 | 14 hours | Late summer crops, succession |
-| **September** | 14-20°C | 10-24°C | 30,000-50,000 | 12 hours | Autumn crops, extending season |
-| **October** | 10-15°C | 6-18°C | 20,000-35,000 | 10 hours | Cool-season revival |
-| **November** | 7-11°C | 3-14°C | 10,000-20,000 | 8 hours | Hardy greens, protection |
-| **December** | 4-8°C | 0-12°C | 5,000-15,000 | 7 hours | Winter harvest, dormancy |
-
-**Note**: Greenhouse values typically 5-10°C warmer than outdoor temps; lux values are for bright days (overcast ~30-50% of maximum).
-
-### Crop Selection Guide by Environmental Requirements
-
-#### Cool-Season Crops (Thrive in 7-18°C)
-
-| Crop | Optimal Temp | Humidity | Soil Moisture | Light Requirement | Best Months (UK) |
-|------|--------------|----------|---------------|-------------------|------------------|
-| **Lettuce** | 10-18°C | 50-70% | 60-75% | 20,000-40,000 lux | Mar-May, Sep-Nov |
-| **Spinach** | 10-18°C | 50-70% | 65-80% | 15,000-35,000 lux | Mar-May, Sep-Oct |
-| **Rocket (Arugula)** | 10-20°C | 50-70% | 60-75% | 15,000-30,000 lux | Mar-Nov |
-| **Kale** | 7-18°C | 50-70% | 60-75% | 20,000-40,000 lux | Year-round |
-| **Chard** | 10-20°C | 50-70% | 65-80% | 20,000-40,000 lux | Mar-Nov |
-| **Peas** | 10-18°C | 50-65% | 60-70% | 30,000-50,000 lux | Mar-May, Aug-Sep |
-| **Radish** | 10-18°C | 50-70% | 60-70% | 20,000-40,000 lux | Mar-May, Sep-Oct |
-| **Broad Beans** | 10-18°C | 50-65% | 60-70% | 30,000-50,000 lux | Feb-Apr, Oct-Nov |
-| **Cabbage** | 12-20°C | 50-70% | 65-80% | 30,000-50,000 lux | Mar-May, Aug-Oct |
-| **Broccoli** | 12-20°C | 50-70% | 65-80% | 30,000-50,000 lux | Mar-May, Aug-Sep |
 
 #### Warm-Season Crops (Thrive in 18-30°C)
 
