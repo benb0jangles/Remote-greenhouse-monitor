@@ -86,14 +86,8 @@ Over time, you can:
 
 #### Moderate/Transitional Crops (Flexible 12-24°C)
 
-| Crop | Optimal Temp | Humidity | Soil Moisture | Light Requirement | Best Months (UK) |
-|------|--------------|----------|---------------|-------------------|------------------|
-| **Carrots** | 15-20°C | 50-70% | 60-70% | 25,000-40,000 lux | Mar-Sep |
-| **Beetroot** | 15-20°C | 50-70% | 65-75% | 25,000-40,000 lux | Apr-Sep |
-| **Pak Choi** | 15-22°C | 60-75% | 70-80% | 25,000-45,000 lux | Apr-Oct |
-| **Coriander** | 15-22°C | 50-70% | 65-75% | 25,000-40,000 lux | Mar-Oct |
-| **Parsley** | 15-22°C | 50-70% | 65-75% | 20,000-40,000 lux | Mar-Oct |
-| **Spring Onions** | 12-20°C | 50-70% | 60-70% | 25,000-40,000 lux | Mar-Oct |
+![monitor_image4](https://github.com/benb0jangles/Remote-greenhouse-monitor/blob/main/img/4.jpg)
+
 
 ### Understanding Your Sensor Readings
 
