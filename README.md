@@ -208,8 +208,6 @@ The live dashboard displays:
 - **Time ranges**: View data over 24 hours, 7 days, 30 days, or 1 year
 - **Historical patterns**: Analyze seasonal trends and daily cycles
 
-Access your dashboard at: `https://yourusername.github.io/your-repo-name/`
-
 ## Key Features
 
 - **Long-range**: 3km+ range using LoRa radio (vs. ~30m for WiFi)
