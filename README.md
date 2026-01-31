@@ -88,46 +88,6 @@ Over time, you can:
 
 ![monitor_image4](https://github.com/benb0jangles/Remote-greenhouse-monitor/blob/main/img/4.jpg)
 
-
-### Understanding Your Sensor Readings
-
-#### Temperature Zones
-
-- **Below 5°C**: Risk of frost damage to most crops; only hardy greens and overwintering varieties
-- **5-10°C**: Cool-season crops grow slowly; good for hardening off transplants
-- **10-18°C**: Optimal for cool-season crops (lettuce, spinach, peas, brassicas)
-- **18-25°C**: Ideal for most vegetables; warm-season crops grow actively
-- **25-30°C**: Peak for heat-loving crops (tomatoes, peppers, cucumbers, melons)
-- **Above 30°C**: Stress conditions; ventilation and shading needed; pollination issues in tomatoes
-
-#### Humidity Management
-
-- **Below 40%**: Very dry; increases water stress, spider mites thrive, poor germination
-- **40-50%**: Low humidity; acceptable for established plants, increases watering needs
-- **50-70%**: **Optimal for most crops**; good transpiration, disease prevention
-- **70-85%**: High humidity; good for cucumbers/tropical crops, ventilation important
-- **Above 85%**: Fungal disease risk (botrytis, powdery mildew); increase ventilation
-
-#### Soil Moisture Interpretation
-
-- **Below 40%**: Dry; plants show water stress, wilting; urgent irrigation needed
-- **40-55%**: Slightly dry; okay for drought-tolerant crops (tomatoes, peppers)
-- **55-70%**: **Optimal for most crops**; good balance of water and air in soil
-- **70-85%**: Moist; good for water-loving crops (cucumbers, lettuce, celery)
-- **Above 85%**: Waterlogged; root rot risk, poor oxygen; improve drainage
-
-#### Light Levels (Lux) Guide
-
-- **Below 10,000 lux**: Deep winter; supplemental lighting needed for growth
-- **10,000-20,000 lux**: Low light; suitable for leafy greens, herbs, microgreens
-- **20,000-40,000 lux**: Moderate light; good for cool-season crops, transplants
-- **40,000-60,000 lux**: High light; needed for fruiting crops, peak growth
-- **Above 60,000 lux**: Very high; optimal for tomatoes, peppers, melons; shading may be needed above 80,000
-
-**Daily Light Integral (DLI)**: Calculate from your data
-- **DLI = (average lux × hours of light) / 93,500**
-- Target: 12-20 mol/m²/day for fruiting crops, 6-12 for leafy greens
-
 ### Practical Use Cases with Your Data
 
 #### Example 1: Planning Tomato Growing Season
@@ -137,13 +97,7 @@ Look at your historical data:
 3. **Does summer humidity stay below 75%?** → Blossom end rot prevention
 4. **Soil moisture patterns** → How often to water (target 65-75%)
 
-#### Example 2: Extending Cool-Season Crops
-Check your autumn data:
-1. **When does temperature drop below 18°C?** → Start lettuce/spinach
-2. **Light levels in September-October** → Can you grow without supplemental light?
-3. **First frost date** (temp < 2°C) → When to protect or harvest
-
-#### Example 3: Optimizing Year-Round Production
+#### Example 2: Optimizing Year-Round Production
 Analyze your annual patterns:
 - **December-February** (low light): Microgreens, hardy salads (with grow lights)
 - **March-April** (warming up): Start transplants, cool-season crops
@@ -152,81 +106,14 @@ Analyze your annual patterns:
 
 ### Warning Thresholds to Monitor
 
-Set up alerts (via ThingSpeak) for:
+Set up alerts for:
 - **Temperature < 2°C**: Frost warning (protect crops or add heat)
 - **Temperature > 32°C**: Heat stress (increase ventilation, shade)
 - **Humidity > 85%** for 6+ hours: Disease risk (improve air circulation)
 - **Soil moisture < 45%**: Irrigation needed
 - **Soil moisture > 85%**: Drainage issue (reduce watering)
 - **Light < 15,000 lux** average in growing season: Consider supplemental lighting
-
-## How It Works
-
-### Hardware Components
-
-**Greenhouse Sensor Node (Remote Location - 3km away)**:
-- **Microcontroller**: Seeed nRF52840 (low-power Nordic chipset)
-- **Radio**: Semtech SX1262 LoRa transceiver (long-range, low-power)
-- **Sensors**:
-  - BME280: Temperature, humidity, barometric pressure
-  - VEML7700: Ambient light intensity (lux)
-  - ADS1115 + Capacitive sensor: Soil moisture
-- **Power**: Solar panel + CN3065 charge controller + 18650 Li-ion battery (3400mAh)
-- **Firmware**: Custom Meshtastic firmware with additional sensor support
-
-**House Monitoring Node (Home Location)**:
-- **Microcontroller**: Seeed ESP32-S3 (WiFi + processing power)
-- **Radio**: Semtech SX1262 LoRa transceiver
-- **Power**: USB mains power (24/7 operation)
-- **Role**: Receives sensor data via LoRa, bridges to internet
-
-**Data Bridge** (converts LoRa data to internet):
-- **Hardware**: ESP32 or ESP8266 development board
-- **Connection**: USB serial to house node
-- **Function**: Publishes sensor data to ThingSpeak cloud platform
-
-### Software Components
-
-- **Meshtastic**: Open-source LoRa mesh networking firmware (handles long-range radio communication)
-- **ThingSpeak**: IoT data platform by MathWorks (stores sensor data, provides APIs)
-- **GitHub Pages**: Free web hosting (displays live graphs and historical data)
-- **Chart.js**: JavaScript graphing library (creates interactive visualizations)
-
-### Data Flow
-
-```
-Greenhouse Sensors → nRF52840 Node → LoRa (3km) → ESP32-S3 House Node
-     → USB Serial → ESP32 Bridge → WiFi → ThingSpeak Cloud
-     → Internet → GitHub Pages Website → Your Browser
-```
-
-## Viewing Your Data
-
-The live dashboard displays:
-- **Current readings**: Real-time values for all five sensors
-- **Interactive graphs**: Zoom, pan, hover for details
-- **Time ranges**: View data over 24 hours, 7 days, 30 days, or 1 year
-- **Historical patterns**: Analyze seasonal trends and daily cycles
-
-## Key Features
-
-- **Long-range**: 3km+ range using LoRa radio (vs. ~30m for WiFi)
-- **Low power**: Solar-powered greenhouse node operates indefinitely
-- **Reliable**: Mesh networking provides redundancy and extended range
-- **Cloud-based**: Data accessible from anywhere with internet
-- **Free**: No subscription fees (uses free tiers of ThingSpeak and GitHub Pages)
-- **Expandable**: Add more sensor nodes to monitor multiple locations
-- **Open-source**: Fully customizable and hackable
-
-## Technologies Used
-
-- **LoRa (Long Range Radio)**: Sub-GHz ISM band, up to 10km+ range
-- **Meshtastic Protocol**: Decentralized mesh networking for resilience
-- **I2C Sensors**: Industry-standard digital sensor interface
-- **Solar Power**: Renewable energy for off-grid operation
-- **Cloud IoT**: Centralized data storage and API access
-- **Static Web Hosting**: Fast, free, and reliable data visualization
-
+  
 ## Future Enhancements
 
 - **Alerts**: SMS/email notifications for frost warnings, low soil moisture, etc.
