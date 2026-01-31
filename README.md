@@ -80,19 +80,9 @@ Over time, you can:
 
 ![monitor_image2](https://github.com/benb0jangles/Remote-greenhouse-monitor/blob/main/img/1.jpg)
 
-
 #### Warm-Season Crops (Thrive in 18-30°C)
 
-| Crop | Optimal Temp | Humidity | Soil Moisture | Light Requirement | Best Months (UK) |
-|------|--------------|----------|---------------|-------------------|------------------|
-| **Tomatoes** | 20-26°C | 60-70% | 65-80% | 50,000-70,000 lux | May-Sep |
-| **Cucumbers** | 22-28°C | 70-85% | 75-85% | 40,000-60,000 lux | May-Sep |
-| **Peppers** | 21-27°C | 60-70% | 65-75% | 50,000-70,000 lux | May-Sep |
-| **Aubergine (Eggplant)** | 22-28°C | 60-70% | 70-80% | 50,000-70,000 lux | Jun-Sep |
-| **Courgette (Zucchini)** | 20-26°C | 60-75% | 70-80% | 50,000-70,000 lux | May-Sep |
-| **Melons** | 24-30°C | 60-70% | 70-80% | 60,000-80,000 lux | Jun-Aug |
-| **Basil** | 20-25°C | 60-70% | 65-75% | 40,000-60,000 lux | May-Sep |
-| **Beans (French)** | 18-24°C | 60-70% | 65-75% | 40,000-60,000 lux | May-Sep |
+![monitor_image3](https://github.com/benb0jangles/Remote-greenhouse-monitor/blob/main/img/5.png)
 
 #### Moderate/Transitional Crops (Flexible 12-24°C)
 
