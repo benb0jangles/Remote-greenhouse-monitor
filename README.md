@@ -1,3 +1,6 @@
+![grovia_logo](https://github.com/benb0jangles/Remote-greenhouse-monitor/blob/main/img/grovia_logo1.png)
+
+
 # 🌱 Long-Range Greenhouse Environmental Monitoring System
 Live greenhouse data:   https://benb0jangles.github.io/Remote-greenhouse-monitor/     
 
