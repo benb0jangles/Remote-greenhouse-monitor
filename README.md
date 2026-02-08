@@ -3,7 +3,7 @@
 
 # 🌱 Long-Range Greenhouse Environmental Monitoring System
 Live greenhouse data:   https://benb0jangles.github.io/Remote-greenhouse-monitor/     
-
+Reddit Community: https://www.reddit.com/r/Grovia/
 ![monitor_image1](https://github.com/benb0jangles/Remote-greenhouse-monitor/blob/main/img/3.jpg)
 
 ## Project Overview
