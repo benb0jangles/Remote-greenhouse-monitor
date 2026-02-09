@@ -247,6 +247,7 @@ function getTimeDisplayFormat() {
             };
         case '30d':
             return {
+                hour: 'MMM dd',
                 day: 'MMM dd',
                 week: 'MMM dd'
             };
