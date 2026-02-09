@@ -6,12 +6,12 @@ const THINGSPEAK_READ_API_KEY = '';  // Leave empty - channel is public
 let currentTimeRange = '24h';
 let charts = {};
 
-// Time range configurations (in ThingSpeak API format)
+// Time range configurations (using ThingSpeak 'days' parameter for accurate filtering)
 const timeRanges = {
-    '24h': { results: 96, label: '24 Hours' },      // ~15 min intervals
-    '7d': { results: 168, label: '7 Days' },        // ~1 hour intervals
-    '30d': { results: 720, label: '30 Days' },      // ~1 hour intervals
-    '1y': { results: 8760, label: '1 Year' }        // ~1 hour intervals
+    '24h': { days: 1, label: '24 Hours' },
+    '7d': { days: 7, label: '7 Days' },
+    '30d': { days: 30, label: '30 Days' },
+    '1y': { days: 365, label: '1 Year' }
 };
 
 // Initialize when page loads
@@ -47,7 +47,7 @@ function initializeEventListeners() {
 
 async function loadData() {
     const range = timeRanges[currentTimeRange];
-    const url = buildThingSpeakURL(range.results);
+    const url = buildThingSpeakURL(range.days);
 
     try {
         document.getElementById('lastUpdate').textContent = 'Loading...';
@@ -71,8 +71,8 @@ async function loadData() {
     }
 }
 
-function buildThingSpeakURL(results) {
-    let url = `https://api.thingspeak.com/channels/${THINGSPEAK_CHANNEL_ID}/feeds.json?results=${results}`;
+function buildThingSpeakURL(days) {
+    let url = `https://api.thingspeak.com/channels/${THINGSPEAK_CHANNEL_ID}/feeds.json?days=${days}`;
 
     if (THINGSPEAK_READ_API_KEY && THINGSPEAK_READ_API_KEY !== 'YOUR_READ_API_KEY') {
         url += `&api_key=${THINGSPEAK_READ_API_KEY}`;
