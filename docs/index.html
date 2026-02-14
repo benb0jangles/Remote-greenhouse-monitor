@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🌱 Allotment Greenhouse Conditions</h1>
+            <h1>🌱 Greenhouse Environmental Monitoring</h1>
             <p class="subtitle">Long-Range LoRa Sensor Network for Precision Agriculture</p>
         </header>
 
@@ -29,34 +30,44 @@
             </div>
         </div>
 
+        <div id="frostAlert" class="frost-alert" style="display: none;">
+            <span class="frost-alert-icon">❄️</span>
+            <span id="frostAlertText">Frost Warning: Temperature is below 3°C — risk of frost damage!</span>
+        </div>
+
         <div class="stats-grid">
-            <div class="stat-card">
+            <div class="stat-card" id="statCardTemp">
                 <div class="stat-icon">🌡️</div>
                 <div class="stat-label">Temperature</div>
+                <div class="stat-range">Ideal: 7–30°C</div>
                 <div class="stat-value" id="currentTemp">--</div>
                 <div class="stat-unit">°C</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" id="statCardHumidity">
                 <div class="stat-icon">💧</div>
                 <div class="stat-label">Humidity</div>
+                <div class="stat-range">Ideal: 50–70%</div>
                 <div class="stat-value" id="currentHumidity">--</div>
                 <div class="stat-unit">%</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" id="statCardPressure">
                 <div class="stat-icon">🔆</div>
                 <div class="stat-label">Barometric Pressure</div>
+                <div class="stat-range">Ideal: 1010–1025 hPa</div>
                 <div class="stat-value" id="currentPressure">--</div>
                 <div class="stat-unit">hPa</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" id="statCardLux">
                 <div class="stat-icon">☀️</div>
                 <div class="stat-label">Light Intensity</div>
+                <div class="stat-range">Ideal: 10,000–30,000 lux</div>
                 <div class="stat-value" id="currentLux">--</div>
                 <div class="stat-unit">lux</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" id="statCardSoil">
                 <div class="stat-icon">🌾</div>
                 <div class="stat-label">Soil Moisture</div>
+                <div class="stat-range">Ideal: 40–60%</div>
                 <div class="stat-value" id="currentSoil">--</div>
                 <div class="stat-unit">%</div>
             </div>
@@ -64,34 +75,34 @@
 
         <div class="charts-grid">
             <div class="chart-container">
-                <h3>Temperature</h3>
+                <h3>Temperature <span class="chart-range">7–30°C</span></h3>
                 <canvas id="tempChart"></canvas>
             </div>
 
             <div class="chart-container">
-                <h3>Humidity</h3>
+                <h3>Humidity <span class="chart-range">50–70%</span></h3>
                 <canvas id="humidityChart"></canvas>
             </div>
 
             <div class="chart-container">
-                <h3>Barometric Pressure</h3>
+                <h3>Barometric Pressure <span class="chart-range">1010–1025 hPa</span></h3>
                 <canvas id="pressureChart"></canvas>
             </div>
 
             <div class="chart-container">
-                <h3>Light Intensity</h3>
+                <h3>Light Intensity <span class="chart-range">10k–30k lux</span></h3>
                 <canvas id="luxChart"></canvas>
             </div>
 
             <div class="chart-container">
-                <h3>Soil Moisture</h3>
+                <h3>Soil Moisture <span class="chart-range">40–60%</span></h3>
                 <canvas id="soilChart"></canvas>
             </div>
         </div>
 
         <footer>
             <p>Data updated hourly from greenhouse sensor node (3km away) via LoRa mesh network</p>
-            <p class="tech-note">Powered by Lora + iot server + GitHub Pages</p>
+            <p class="tech-note">Powered by Meshtastic + ThingSpeak + GitHub Pages</p>
         </footer>
     </div>
 

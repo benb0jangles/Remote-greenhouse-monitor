@@ -287,6 +287,69 @@ footer p {
     font-weight: 500;
 }
 
+/* Frost Alert Banner */
+.frost-alert {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 1.05em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 16px rgba(211, 47, 47, 0.35);
+    animation: frost-pulse 2s ease-in-out infinite;
+}
+
+.frost-alert-icon {
+    font-size: 1.6em;
+}
+
+@keyframes frost-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+}
+
+/* Ideal Range Text */
+.stat-range {
+    font-size: 0.78em;
+    color: #888;
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+
+/* Chart Range Labels */
+.chart-range {
+    font-size: 0.7em;
+    font-weight: 400;
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* Stat Card Color States */
+.stat-in-range::before {
+    background: linear-gradient(90deg, #4CAF50, #66BB6A) !important;
+}
+.stat-in-range {
+    border-color: #4CAF50 !important;
+}
+
+.stat-warning::before {
+    background: linear-gradient(90deg, #FF9800, #FFB74D) !important;
+}
+.stat-warning {
+    border-color: #FF9800 !important;
+}
+
+.stat-danger::before {
+    background: linear-gradient(90deg, #f44336, #ef5350) !important;
+}
+.stat-danger {
+    border-color: #f44336 !important;
+}
+
 @media (max-width: 768px) {
     header h1 {
         font-size: 1.8em;

@@ -3,6 +3,19 @@ const THINGSPEAK_CHANNEL_ID = '3245000';  // Your ThingSpeak channel ID
 const THINGSPEAK_READ_API_KEY = '';  // Leave empty - channel is public
 // ===================================
 
+// Ideal ranges for each sensor
+const idealRanges = {
+    temperature: { min: 7, max: 30, unit: '°C', cardId: 'statCardTemp' },
+    humidity:    { min: 50, max: 70, unit: '%', cardId: 'statCardHumidity' },
+    pressure:    { min: 1010, max: 1025, unit: 'hPa', cardId: 'statCardPressure' },
+    lux:         { min: 10000, max: 30000, unit: 'lux', cardId: 'statCardLux' },
+    soil:        { min: 40, max: 60, unit: '%', cardId: 'statCardSoil' }
+};
+
+// Approximate UK location for sunrise/sunset calculation
+const LATITUDE = 51.5;
+const LONGITUDE = -0.1;
+
 let currentTimeRange = '24h';
 let charts = {};
 
@@ -81,22 +94,183 @@ function buildThingSpeakURL(days) {
     return url;
 }
 
-function updateCurrentValues(latestData) {
-    document.getElementById('currentTemp').textContent =
-        latestData.field1 ? parseFloat(latestData.field1).toFixed(1) : '--';
+// ========== COLOR-CODING & FROST DETECTION ==========
 
-    document.getElementById('currentHumidity').textContent =
-        latestData.field2 ? parseFloat(latestData.field2).toFixed(1) : '--';
-
-    document.getElementById('currentPressure').textContent =
-        latestData.field3 ? parseFloat(latestData.field3).toFixed(1) : '--';
-
-    document.getElementById('currentLux').textContent =
-        latestData.field4 ? parseFloat(latestData.field4).toFixed(0) : '--';
-
-    document.getElementById('currentSoil').textContent =
-        latestData.field5 ? parseFloat(latestData.field5).toFixed(1) : '--';
+function getValueState(value, range) {
+    if (value === null || isNaN(value)) return 'unknown';
+    const span = range.max - range.min;
+    const edgeMargin = span * 0.1;
+    if (value >= range.min && value <= range.max) return 'in-range';
+    if (value >= range.min - edgeMargin && value <= range.max + edgeMargin) return 'warning';
+    return 'danger';
 }
+
+function applyCardState(cardId, state) {
+    const card = document.getElementById(cardId);
+    if (!card) return;
+    card.classList.remove('stat-in-range', 'stat-warning', 'stat-danger');
+    if (state === 'in-range') card.classList.add('stat-in-range');
+    else if (state === 'warning') card.classList.add('stat-warning');
+    else if (state === 'danger') card.classList.add('stat-danger');
+}
+
+function updateFrostAlert(tempValue) {
+    const alert = document.getElementById('frostAlert');
+    const alertText = document.getElementById('frostAlertText');
+    if (tempValue !== null && !isNaN(tempValue) && tempValue < 3) {
+        alertText.textContent = `Frost Warning: Temperature is ${tempValue.toFixed(1)}°C — risk of frost damage!`;
+        alert.style.display = 'flex';
+    } else {
+        alert.style.display = 'none';
+    }
+}
+
+function updateCurrentValues(latestData) {
+    const values = {
+        temperature: latestData.field1 ? parseFloat(latestData.field1) : null,
+        humidity: latestData.field2 ? parseFloat(latestData.field2) : null,
+        pressure: latestData.field3 ? parseFloat(latestData.field3) : null,
+        lux: latestData.field4 ? parseFloat(latestData.field4) : null,
+        soil: latestData.field5 ? parseFloat(latestData.field5) : null
+    };
+
+    document.getElementById('currentTemp').textContent =
+        values.temperature !== null ? values.temperature.toFixed(1) : '--';
+    document.getElementById('currentHumidity').textContent =
+        values.humidity !== null ? values.humidity.toFixed(1) : '--';
+    document.getElementById('currentPressure').textContent =
+        values.pressure !== null ? values.pressure.toFixed(1) : '--';
+    document.getElementById('currentLux').textContent =
+        values.lux !== null ? values.lux.toFixed(0) : '--';
+    document.getElementById('currentSoil').textContent =
+        values.soil !== null ? values.soil.toFixed(1) : '--';
+
+    // Apply color-coded states to stat cards
+    for (const [key, range] of Object.entries(idealRanges)) {
+        const state = getValueState(values[key], range);
+        applyCardState(range.cardId, state);
+    }
+
+    // Frost alert
+    updateFrostAlert(values.temperature);
+}
+
+// ========== SUNRISE / SUNSET CALCULATION ==========
+
+function getSunTimes(date, lat, lng) {
+    // Simple solar calculation (accurate to ~5 minutes)
+    const rad = Math.PI / 180;
+    const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86400000);
+    const declination = -23.45 * Math.cos(rad * (360 / 365) * (dayOfYear + 10));
+    const hourAngle = Math.acos(
+        -Math.tan(lat * rad) * Math.tan(declination * rad)
+    ) / rad;
+    const solarNoon = 12 - lng / 15; // approximate solar noon in UTC hours
+    const sunriseUTC = solarNoon - hourAngle / 15;
+    const sunsetUTC = solarNoon + hourAngle / 15;
+
+    const sunrise = new Date(date);
+    sunrise.setUTCHours(0, 0, 0, 0);
+    sunrise.setUTCMinutes(sunriseUTC * 60);
+
+    const sunset = new Date(date);
+    sunset.setUTCHours(0, 0, 0, 0);
+    sunset.setUTCMinutes(sunsetUTC * 60);
+
+    return { sunrise, sunset };
+}
+
+function generateNightAnnotations(labels) {
+    // Only for 24h and 7d ranges
+    if (currentTimeRange !== '24h' && currentTimeRange !== '7d') return {};
+
+    if (!labels || labels.length < 2) return {};
+
+    const startDate = new Date(labels[0]);
+    const endDate = new Date(labels[labels.length - 1]);
+    const annotations = {};
+    let idx = 0;
+
+    // Iterate day by day across the range
+    const current = new Date(startDate);
+    current.setUTCHours(0, 0, 0, 0);
+    // Start one day before to capture the previous night
+    current.setUTCDate(current.getUTCDate() - 1);
+
+    const limit = new Date(endDate);
+    limit.setUTCDate(limit.getUTCDate() + 1);
+
+    while (current <= limit) {
+        const { sunrise, sunset } = getSunTimes(current, LATITUDE, LONGITUDE);
+
+        // Evening night band: sunset to midnight
+        const midnight = new Date(current);
+        midnight.setUTCDate(midnight.getUTCDate() + 1);
+        midnight.setUTCHours(0, 0, 0, 0);
+
+        if (sunset < endDate && midnight > startDate) {
+            annotations[`night_eve_${idx}`] = {
+                type: 'box',
+                xMin: Math.max(sunset.getTime(), startDate.getTime()),
+                xMax: Math.min(midnight.getTime(), endDate.getTime()),
+                backgroundColor: 'rgba(30, 30, 60, 0.08)',
+                borderWidth: 0,
+                drawTime: 'beforeDatasetsDraw'
+            };
+        }
+
+        // Morning night band: midnight to sunrise
+        const nextDay = new Date(current);
+        nextDay.setUTCDate(nextDay.getUTCDate() + 1);
+        const { sunrise: nextSunrise } = getSunTimes(nextDay, LATITUDE, LONGITUDE);
+
+        if (midnight < endDate && nextSunrise > startDate) {
+            annotations[`night_morn_${idx}`] = {
+                type: 'box',
+                xMin: Math.max(midnight.getTime(), startDate.getTime()),
+                xMax: Math.min(nextSunrise.getTime(), endDate.getTime()),
+                backgroundColor: 'rgba(30, 30, 60, 0.08)',
+                borderWidth: 0,
+                drawTime: 'beforeDatasetsDraw'
+            };
+        }
+
+        current.setUTCDate(current.getUTCDate() + 1);
+        idx++;
+    }
+
+    return annotations;
+}
+
+// ========== CHART ANNOTATIONS ==========
+
+function buildAnnotations(labels, idealRange) {
+    const annotations = {};
+
+    // Ideal range band
+    if (idealRange) {
+        annotations.idealBand = {
+            type: 'box',
+            yMin: idealRange.min,
+            yMax: idealRange.max,
+            backgroundColor: 'rgba(76, 175, 80, 0.08)',
+            borderColor: 'rgba(76, 175, 80, 0.2)',
+            borderWidth: 1,
+            drawTime: 'beforeDatasetsDraw',
+            label: {
+                display: false
+            }
+        };
+    }
+
+    // Day/night shading
+    const nightAnnotations = generateNightAnnotations(labels);
+    Object.assign(annotations, nightAnnotations);
+
+    return annotations;
+}
+
+// ========== CHARTS ==========
 
 function updateCharts(feeds) {
     const labels = feeds.map(feed => new Date(feed.created_at));
@@ -139,20 +313,22 @@ function updateCharts(feeds) {
         }
     };
 
-    createOrUpdateChart('tempChart', labels, datasets.temperature);
-    createOrUpdateChart('humidityChart', labels, datasets.humidity);
-    createOrUpdateChart('pressureChart', labels, datasets.pressure);
-    createOrUpdateChart('luxChart', labels, datasets.lux);
-    createOrUpdateChart('soilChart', labels, datasets.soil);
+    createOrUpdateChart('tempChart', labels, datasets.temperature, idealRanges.temperature);
+    createOrUpdateChart('humidityChart', labels, datasets.humidity, idealRanges.humidity);
+    createOrUpdateChart('pressureChart', labels, datasets.pressure, idealRanges.pressure);
+    createOrUpdateChart('luxChart', labels, datasets.lux, idealRanges.lux);
+    createOrUpdateChart('soilChart', labels, datasets.soil, idealRanges.soil);
 }
 
-function createOrUpdateChart(chartId, labels, dataset) {
+function createOrUpdateChart(chartId, labels, dataset, idealRange) {
     const ctx = document.getElementById(chartId).getContext('2d');
 
     // Destroy existing chart if it exists
     if (charts[chartId]) {
         charts[chartId].destroy();
     }
+
+    const annotations = buildAnnotations(labels, idealRange);
 
     // Create new chart
     charts[chartId] = new Chart(ctx, {
@@ -198,6 +374,9 @@ function createOrUpdateChart(chartId, labels, dataset) {
                             return date.toLocaleString();
                         }
                     }
+                },
+                annotation: {
+                    annotations: annotations
                 }
             },
             scales: {
