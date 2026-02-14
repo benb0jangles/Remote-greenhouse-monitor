@@ -289,7 +289,7 @@ footer p {
 
 /* Frost Alert Banner */
 .frost-alert {
-    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    background: linear-gradient(135deg, #1565C0, #0D47A1);
     color: white;
     padding: 16px 24px;
     border-radius: 12px;
@@ -299,11 +299,31 @@ footer p {
     display: flex;
     align-items: center;
     gap: 12px;
-    box-shadow: 0 4px 16px rgba(211, 47, 47, 0.35);
+    box-shadow: 0 4px 16px rgba(21, 101, 192, 0.35);
     animation: frost-pulse 2s ease-in-out infinite;
 }
 
 .frost-alert-icon {
+    font-size: 1.6em;
+}
+
+/* Heat Alert Banner */
+.heat-alert {
+    background: linear-gradient(135deg, #e65100, #bf360c);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 1.05em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 16px rgba(230, 81, 0, 0.35);
+    animation: frost-pulse 2s ease-in-out infinite;
+}
+
+.heat-alert-icon {
     font-size: 1.6em;
 }
 

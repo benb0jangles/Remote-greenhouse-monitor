@@ -35,6 +35,11 @@
             <span id="frostAlertText">Frost Warning: Temperature is below 3°C — risk of frost damage!</span>
         </div>
 
+        <div id="heatAlert" class="heat-alert" style="display: none;">
+            <span class="heat-alert-icon">🔥</span>
+            <span id="heatAlertText">Heat Warning: Temperature is above 37°C — risk of heat stress!</span>
+        </div>
+
         <div class="stats-grid">
             <div class="stat-card" id="statCardTemp">
                 <div class="stat-icon">🌡️</div>
@@ -53,7 +58,7 @@
             <div class="stat-card" id="statCardPressure">
                 <div class="stat-icon">🔆</div>
                 <div class="stat-label">Barometric Pressure</div>
-                <div class="stat-range">Ideal: 1010–1025 hPa</div>
+                <div class="stat-range"></div>
                 <div class="stat-value" id="currentPressure">--</div>
                 <div class="stat-unit">hPa</div>
             </div>
@@ -85,7 +90,7 @@
             </div>
 
             <div class="chart-container">
-                <h3>Barometric Pressure <span class="chart-range">(ideal range: 1010–1025 hPa)</span></h3>
+                <h3>Barometric Pressure</h3>
                 <canvas id="pressureChart"></canvas>
             </div>
 

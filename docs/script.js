@@ -7,7 +7,7 @@ const THINGSPEAK_READ_API_KEY = '';  // Leave empty - channel is public
 const idealRanges = {
     temperature: { min: 7, max: 30, unit: '°C', cardId: 'statCardTemp' },
     humidity:    { min: 50, max: 70, unit: '%', cardId: 'statCardHumidity' },
-    pressure:    { min: 1010, max: 1025, unit: 'hPa', cardId: 'statCardPressure' },
+    pressure:    null,
     lux:         { min: 10000, max: 30000, unit: 'lux', cardId: 'statCardLux' },
     soil:        { min: 40, max: 60, unit: '%', cardId: 'statCardSoil' }
 };
@@ -115,13 +115,22 @@ function applyCardState(cardId, state) {
 }
 
 function updateFrostAlert(tempValue) {
-    const alert = document.getElementById('frostAlert');
-    const alertText = document.getElementById('frostAlertText');
+    const frostAlert = document.getElementById('frostAlert');
+    const frostText = document.getElementById('frostAlertText');
     if (tempValue !== null && !isNaN(tempValue) && tempValue < 3) {
-        alertText.textContent = `Frost Warning: Temperature is ${tempValue.toFixed(1)}°C — risk of frost damage!`;
-        alert.style.display = 'flex';
+        frostText.textContent = `Frost Warning: Temperature is ${tempValue.toFixed(1)}°C — risk of frost damage!`;
+        frostAlert.style.display = 'flex';
     } else {
-        alert.style.display = 'none';
+        frostAlert.style.display = 'none';
+    }
+
+    const heatAlert = document.getElementById('heatAlert');
+    const heatText = document.getElementById('heatAlertText');
+    if (tempValue !== null && !isNaN(tempValue) && tempValue > 37) {
+        heatText.textContent = `Heat Warning: Temperature is ${tempValue.toFixed(1)}°C — risk of heat stress!`;
+        heatAlert.style.display = 'flex';
+    } else {
+        heatAlert.style.display = 'none';
     }
 }
 
@@ -147,6 +156,7 @@ function updateCurrentValues(latestData) {
 
     // Apply color-coded states to stat cards
     for (const [key, range] of Object.entries(idealRanges)) {
+        if (!range) continue;
         const state = getValueState(values[key], range);
         applyCardState(range.cardId, state);
     }
