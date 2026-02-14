@@ -45,14 +45,14 @@
             <div class="stat-card" id="statCardTemp">
                 <div class="stat-icon">🌡️</div>
                 <div class="stat-label">Temperature</div>
-                <div class="stat-range">Ideal: 7–30°C</div>
+                <div class="stat-range">Ideal: 7–36°C</div>
                 <div class="stat-value" id="currentTemp">--</div>
                 <div class="stat-unit">°C</div>
             </div>
             <div class="stat-card" id="statCardHumidity">
                 <div class="stat-icon">💧</div>
                 <div class="stat-label">Humidity</div>
-                <div class="stat-range">Ideal: 50–70%</div>
+                <div class="stat-range">Ideal: 0–50%</div>
                 <div class="stat-value" id="currentHumidity">--</div>
                 <div class="stat-unit">%</div>
             </div>
@@ -66,14 +66,14 @@
             <div class="stat-card" id="statCardLux">
                 <div class="stat-icon">☀️</div>
                 <div class="stat-label">Light Intensity</div>
-                <div class="stat-range">Ideal: 10,000–30,000 lux</div>
+                <div class="stat-range">Ideal: 7,000–30,000 lux</div>
                 <div class="stat-value" id="currentLux">--</div>
                 <div class="stat-unit">lux</div>
             </div>
             <div class="stat-card" id="statCardSoil">
                 <div class="stat-icon">🌾</div>
                 <div class="stat-label">Soil Moisture</div>
-                <div class="stat-range">Ideal: 40–60%</div>
+                <div class="stat-range">Ideal: 20–60%</div>
                 <div class="stat-value" id="currentSoil">--</div>
                 <div class="stat-unit">%</div>
             </div>
@@ -81,22 +81,22 @@
 
         <div class="charts-grid">
             <div class="chart-container">
-                <h3>Temperature <span class="chart-range">(ideal range: 7–30°C)</span></h3>
+                <h3>Temperature <span class="chart-range">(ideal range: 7–36°C)</span></h3>
                 <canvas id="tempChart"></canvas>
             </div>
 
             <div class="chart-container">
-                <h3>Light Intensity <span class="chart-range">(ideal range: 10k–30k lux)</span></h3>
+                <h3>Light Intensity <span class="chart-range">(ideal range: 7k–30k lux)</span></h3>
                 <canvas id="luxChart"></canvas>
             </div>
 
             <div class="chart-container">
-                <h3>Soil Moisture <span class="chart-range">(ideal range: 40–60%)</span></h3>
+                <h3>Soil Moisture <span class="chart-range">(ideal range: 20–60%)</span></h3>
                 <canvas id="soilChart"></canvas>
             </div>
 
             <div class="chart-container">
-                <h3>Humidity <span class="chart-range">(ideal range: 50–70%)</span></h3>
+                <h3>Humidity <span class="chart-range">(ideal range: 0–50%)</span></h3>
                 <canvas id="humidityChart"></canvas>
             </div>
 

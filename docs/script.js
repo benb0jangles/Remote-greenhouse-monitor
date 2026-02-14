@@ -5,11 +5,11 @@ const THINGSPEAK_READ_API_KEY = '';  // Leave empty - channel is public
 
 // Ideal ranges for each sensor
 const idealRanges = {
-    temperature: { min: 7, max: 30, unit: '°C', cardId: 'statCardTemp' },
-    humidity:    { min: 50, max: 70, unit: '%', cardId: 'statCardHumidity' },
+    temperature: { min: 7, max: 36, unit: '°C', cardId: 'statCardTemp' },
+    humidity:    { min: 0, max: 50, unit: '%', cardId: 'statCardHumidity' },
     pressure:    null,
-    lux:         { min: 10000, max: 30000, unit: 'lux', cardId: 'statCardLux' },
-    soil:        { min: 40, max: 60, unit: '%', cardId: 'statCardSoil' }
+    lux:         { min: 7000, max: 30000, unit: 'lux', cardId: 'statCardLux' },
+    soil:        { min: 20, max: 60, unit: '%', cardId: 'statCardSoil' }
 };
 
 // Approximate UK location for sunrise/sunset calculation
